@@ -1,0 +1,381 @@
+<!DOCTYPE html><html lang="id"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mann Shop - Pembayaran</title>
+
+    <!-- Meta tags -->
+    <meta name="title" content="Mann Shop - Pembayaran Layanan Premium">
+    <meta name="description" content="Pembayaran layanan premium Mann Shop yang aman dan terpercaya.">
+    <meta name="keywords" content="pembayaran mann shop, joki genshin impact, payment">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Indonesian">
+    <meta name="author" content="Mann Shop">
+
+    <!-- CSS -->
+    <link href="../../../Ph5fPIH3GLWR.com/ajax/libs/tailwindcss/nvF2p7SZTSnY.19/k1I6h3sspH15.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../Ph5fPIH3GLWR.com/ajax/libs/font-awesome/I8nRxPmaR7vC.0/css/NpZIOqiTsPMi.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+      :root {
+        --primary-blue: #1e3a8a;
+        --dark-blue: #0f172a;
+        --light-blue: #3b82f6;
+        --accent-blue: #60a5fa;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(to bottom right, var(--dark-blue), #000000);
+        min-height: 100vh;
+      }
+
+      .container .grid {
+        padding: 20px 0;
+      }
+
+      .glass-effect {
+        background: rgba(30, 58, 138, 0.1);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(30, 58, 138, 0.2);
+      }
+
+      .glass-card {
+        background: rgba(30, 58, 138, 0.1);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(30, 58, 138, 0.2);
+        transition: all 0.3s ease;
+        transform: perspective(1000px) rotateX(5deg);
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6),
+          0 5px 10px rgba(0, 0, 0, 0.5);
+        padding: 1.25rem;
+      }
+
+      .glass-card:hover {
+        transform: perspective(1000px) rotateX(0deg) translateY(-5px);
+        background: rgba(30, 58, 138, 0.2);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.7),
+          0 10px 15px rgba(0, 0, 0, 0.6);
+      }
+
+      .glass-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0.05) 100%
+        );
+        border-radius: 0.75rem;
+        pointer-events: none;
+      }
+
+      .glass-card .gradient-text {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .gradient-text {
+        background: linear-gradient(
+          45deg,
+          var(--accent-blue),
+          var(--light-blue)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .payment-button {
+        background: linear-gradient(
+          45deg,
+          var(--primary-blue),
+          var(--light-blue)
+        );
+        color: white;
+        font-weight: 600;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        width: 100%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .payment-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        background: linear-gradient(
+          45deg,
+          var(--light-blue),
+          var(--primary-blue)
+        );
+      }
+
+      .glass-notification {
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        background: rgba(15, 23, 42, 0.95) !important;
+        border: 1px solid rgba(59, 130, 246, 0.3) !important;
+        border-radius: 1.25rem !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+          inset 0 0 32px rgba(59, 130, 246, 0.1) !important;
+      }
+
+      .notification-title {
+        color: var(--accent-blue) !important;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+      }
+
+      .notification-message {
+        color: #e2e8f0 !important;
+      }
+
+      .notification-icon {
+        background: rgba(59, 130, 246, 0.15) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2),
+          inset 0 0 8px rgba(59, 130, 246, 0.2) !important;
+      }
+
+      nav a {
+        color: #e2e8f0;
+      }
+
+      nav a:hover {
+        color: var(--accent-blue);
+      }
+
+      footer {
+        background: rgba(15, 23, 42, 0.8);
+      }
+
+      .payment-icon {
+        width: 80px;
+        height: auto;
+        margin-right: 12px;
+      }
+
+      #qr-code {
+        width: 190px;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+        border: 5px solid var(--light-blue);
+        border-radius: 10px;
+        background: rgba(59, 130, 246, 0.1);
+        filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.3));
+        transition: all 0.3s ease;
+      }
+
+      #qr-code:hover {
+        border-color: var(--accent-blue);
+        filter: drop-shadow(0 0 20px rgba(96, 165, 250, 0.4));
+        transform: scale(1.02);
+      }
+
+      .glass-card p {
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+      }
+
+      @keyframes slideInAndGlow {
+        0% {
+          transform: translateX(100%);
+          opacity: 0;
+          box-shadow: 0 0 0 rgba(59, 130, 246, 0);
+        }
+        50% {
+          box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+        100% {
+          transform: translateX(0);
+          opacity: 1;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero-image {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar Desktop -->
+    <nav class="hidden lg:flex fixed w-full glass-effect z-50">
+      <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <span class="text-2xl font-bold gradient-text">Pembayaran</span>
+        <div class="flex space-x-8">
+          <a href="https://wa.me/6283861518933" class="text-gray-300 hover:text-blue-300 transition">
+            <i class="fas fa-headset text-lg mr-2"></i>Help
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Navbar Mobile -->
+    <nav class="lg:hidden fixed bottom-0 w-full glass-effect z-50">
+      <div class="flex justify-around py-4">
+        <a href="https://wa.me/6283861518933" class="flex flex-col items-center text-gray-300 hover:text-blue-300">
+          <i class="fas fa-headset text-xl"></i>
+          <span class="text-xs mt-1">Help</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-24 lg:pt-32 pb-20">
+      <div class="container mx-auto px-6 text-center">
+        <img src="../../img/fp-g.png" alt="Mann Shop" class="hero-image mx-auto mb-8">
+        <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">
+          <span class="gradient-text">Pilih Metode Pembayaran</span>
+        </h1>
+        <p class="text-xl text-blue-100 opacity-90">
+          Pilih metode pembayaran yang Anda inginkan untuk melanjutkan transaksi
+        </p>
+      </div>
+    </header>
+
+    <!-- Payment Methods -->
+    <section class="py-20">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- DANA -->
+          <div class="glass-card rounded-xl">
+            <div class="flex items-center mb-3">
+              <img src="../../img/ic-dana.png" alt="DANA" class="payment-icon">
+              <h3 class="text-xl font-bold gradient-text"></h3>
+            </div>
+            <p class="text-gray-300">
+              Transfer melalui DANA untuk proses lebih cepat
+            </p>
+            <button onclick="copyNumber('083185364400', 'DANA')" class="payment-button">
+              <i class="fas fa-copy mr-2"></i>Salin Nomor
+            </button>
+          </div>
+
+          <!-- Gopay -->
+          <div class="glass-card rounded-xl">
+            <div class="flex items-center mb-3">
+              <img src="../../img/ic-gopay.png" alt="Gopay" class="payment-icon">
+              <h3 class="text-xl font-bold gradient-text"></h3>
+            </div>
+            <p class="text-gray-300">Transfer instan melalui Gopay</p>
+            <button onclick="copyNumber('083861518933', 'Gopay')" class="payment-button">
+              <i class="fas fa-copy mr-2"></i>Salin Nomor
+            </button>
+          </div>
+
+          <!-- OVO -->
+          <div class="glass-card rounded-xl">
+            <div class="flex items-center mb-3">
+              <img src="../../img/ic-ovo.png" alt="OVO" class="payment-icon">
+              <h3 class="text-xl font-bold gradient-text"></h3>
+            </div>
+            <p class="text-gray-300">Transfer instan melalui OVO</p>
+            <button onclick="copyNumber('083861518933', 'OVO')" class="payment-button">
+              <i class="fas fa-copy mr-2"></i>Salin Nomor
+            </button>
+          </div>
+
+          <!-- QRIS -->
+          <div class="glass-card rounded-xl">
+            <div class="flex items-center mb-3">
+              <img src="../../img/ic-qris.png" alt="QRIS" class="payment-icon">
+              <h3 class="text-xl font-bold gradient-text"></h3>
+            </div>
+            <div class="text-center mt-4">
+              <img src="../../img/qr-qris.jpeg" alt="QRIS Code" class="mx-auto mb-4" id="qr-code">
+              <p class="text-gray-300 text-sm mb-4"></p>
+              <p class="text-gray-300 text-sm mb-4">
+                Scan QR code untuk pembayaran atau unduh QR dibawah ini
+              </p>
+              <button onclick="downloadQR()" class="payment-button">
+                <i class="fas fa-download mr-2"></i>Unduh QR
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      function showNotification(type, title, message) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 4000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+            toast.setAttribute("data-type", type);
+            if (icon) {
+              icon.style.animation = "pulse 2s infinite";
+            }
+          },
+          customClass: {
+            popup: "glass-notification",
+            title: "notification-title",
+            htmlContainer: "notification-message",
+          },
+        });
+
+        Toast.fire({
+          icon: type,
+          title: title,
+          text: message,
+          background: "rgba(42, 67, 101, 0.85)",
+          color: "#fff",
+          iconColor: type === "success" ? "#4CAF50" : "#f44336",
+        });
+      }
+
+      function copyNumber(number, method) {
+        navigator.clipboard
+          .writeText(number)
+          .then(() => {
+            showNotification(
+              "success",
+              `<span class="font-semibold">${method}</span>`,
+              `Nomor ${method} telah disalin ke clipboard`
+            );
+          })
+          .catch(() => {
+            showNotification(
+              "error",
+              "Gagal",
+              "Tidak dapat menyalin nomor. Silakan coba lagi."
+            );
+          });
+      }
+
+      function downloadQR() {
+        const qrImage = document.getElementById("qr-code");
+        const link = document.createElement("a");
+        link.href = qrImage.src;
+        link.download = "mann-shop-qris.jpeg";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        showNotification(
+          "success",
+          "QR Code Terunduh",
+          "Silakan scan QR Code untuk melakukan pembayaran"
+        );
+      }
+    </script>
+  
+
+</body></html>
